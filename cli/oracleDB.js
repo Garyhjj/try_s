@@ -2,14 +2,14 @@ const oracledb = require('oracledb');
 oracledb.outFormat = oracledb.OBJECT;
 const config = {
     productionDB: {
-        user: 'mil',
-        password: 'milacgs',
-        connectString: `10.86.0.146:1521/milgs`,
+        user: 'mioa',
+        password: 'msloa',
+        connectString: `10.86.0.139:1521/mioa`,
     },
     devDB: {
-        user: 'mil',
-        password: 'milacgs',
-        connectString: `10.86.0.107:1521/milgs`,
+        user: 'mioa',
+        password: 'msloa',
+        connectString: `10.86.3.41:1531/mioa`,
     },
 };
 let dbConfig;

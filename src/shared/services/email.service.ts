@@ -47,9 +47,6 @@ export class EmailService {
             values
             (moa_pending_mails_id.nextval,0,'${from}','${to}','${cc}','${bcc}','${subject}',v_content,1,1,1,-2,sysdate,sysdate);
             end;`,
-        undefined,
-        undefined,
-        { switchToOA: true },
       )
       .then(() => 'OK');
   }
@@ -66,13 +63,13 @@ export class EmailService {
       this.databaseService.execute(`
       begin
       MOA_SEND_MAIL_PKG.
-      SEND_COMMON_MAIL@DBLINK_MIOA (
+      SEND_COMMON_MAIL (
         'gary.h@mic.com.tw',
         '邮件通知异常',
         '${mailOptions.subject}',
         'Mhub_Urgent@mic.com.tw',
         '');
-        MOA_SEND_MAIL_PKG.SEND_MAIL@DBLINK_MIOA;
+        MOA_SEND_MAIL_PKG.SEND_MAIL;
         end;`);
       return Promise.reject(err);
     });

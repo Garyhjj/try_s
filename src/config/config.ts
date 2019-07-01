@@ -6,22 +6,20 @@ export function isProduction() {
 
 export const dbConfig = {
   productionDB: {
-    user: 'mil',
-    password: 'milacgs',
-    connectString: `10.86.0.146:1521/milgs`,
-    stmtCacheSize: 3000,
+    user: 'mioa',
+    password: 'msloa',
+    connectString: `10.86.0.139:1521/mioa`,
   },
   // devDB: {
-  //   user: 'mil',
-  //   password: 'milacgs',
-  //   connectString: `10.86.0.146:1521/milgs`,
+  //   user: 'mioa',
+  //   password: 'msloa',
+  //   connectString: `10.86.0.139:1521/mioa`,
   //   stmtCacheSize: 300,
   // },
   devDB: {
-    user: 'mil',
-    password: 'milquer',
-    connectString: `10.86.0.157:1531/milgs`,
-    stmtCacheSize: 3000,
+    user: 'mioa',
+    password: 'msloa',
+    connectString: `10.86.3.41:1531/mioa`,
   },
   mioaProductionDB: {
     user: 'mioa',
@@ -46,5 +44,5 @@ export const dbConfig = {
 };
 
 export const serverConfig = {
-  port: isProduction() ? 8084 : 8084,
+  port: isProduction() ? 8092 : 8092,
 };

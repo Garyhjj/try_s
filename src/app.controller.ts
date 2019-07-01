@@ -18,11 +18,7 @@ export class AppController {
     private http: HttpService,
     private utilService: UtilService,
   ) {}
-  safeCommands = [
-    'npm run update',
-    'pm2 reload ihubServer',
-    'npm run update:dev',
-  ];
+  safeCommands = ['npm run update', 'pm2 reload ihubServer'];
 
   @ApiOperation({ title: 'Hello world' })
   @ApiResponse({

@@ -20,8 +20,7 @@
     "preUpdate": "git checkout -- .",
     "update": "git pull origin master && npm i && tsc && cross-env NODE_ENV=production pm2 reload ihubServer",
     "preUpdate:dev": "git checkout -- .",
-    "update:dev": "git pull origin master && npm i && tsc && cross-env NODE_ENV=development pm2 reload ihubServer",
-    "update:hou": "git pull origin jinzhi-hou && npm i && tsc && cross-env NODE_ENV=development pm2 reload ihubServer"
+    "update:dev": "git pull origin master && npm i && tsc && cross-env NODE_ENV=development pm2 reload ihubServer"
   },
   "dependencies": {
     "@nestjs/common": "^5.0.0-beta.3",
