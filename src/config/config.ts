@@ -10,17 +10,17 @@ export const dbConfig = {
     password: 'msloa',
     connectString: `10.86.0.139:1521/mioa`,
   },
-  // devDB: {
-  //   user: 'mioa',
-  //   password: 'msloa',
-  //   connectString: `10.86.0.139:1521/mioa`,
-  //   stmtCacheSize: 300,
-  // },
   devDB: {
     user: 'mioa',
     password: 'msloa',
-    connectString: `10.86.3.41:1531/mioa`,
+    connectString: `47.107.170.153:1521/IMS`,
+    stmtCacheSize: 300,
   },
+  // devDB: {
+  //   user: 'mioa',
+  //   password: 'msloa',
+  //   connectString: `10.86.3.41:1531/mioa`,
+  // },
   mioaProductionDB: {
     user: 'mioa',
     password: 'msloa',

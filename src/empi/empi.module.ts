@@ -1,3 +1,4 @@
+import { DataDriveModule } from './data-drive/data-drive.module';
 import { LookupModule } from './lookup/lookup.module';
 import { MailGroupModule } from './mail-group/mail-group.module';
 import { FileRelationModule } from './file-relation/file-relation.module';
@@ -10,6 +11,7 @@ import { Module } from '@nestjs/common';
     FileRelationModule,
     MailGroupModule,
     LookupModule,
+    DataDriveModule
   ],
 })
 export class EmpiModule {}
