@@ -1,6 +1,6 @@
 import { UtilService } from './core/util.service';
 import { HttpService } from '@nestjs/common/http';
-import { Get, Post, Controller, Body, Param } from '@nestjs/common';
+import { Get, Post, Controller, Body, Param, FileInterceptor, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { AppService } from './app.service';
 import {
   ApiUseTags,
@@ -17,7 +17,7 @@ export class AppController {
     private readonly appService: AppService,
     private http: HttpService,
     private utilService: UtilService,
-  ) {}
+  ) { }
   safeCommands = ['npm run update', 'pm2 reload ihubServer'];
 
   @ApiOperation({ title: 'Hello world' })
@@ -95,6 +95,12 @@ export class AppController {
       });
     });
   }
+
+  // @Post('SystemOperation/UploadFiles')
+  // @UseInterceptors(FileInterceptor('file'))
+  // async upload(@UploadedFile() file) {
+  //   console.log(file);
+  // }
 
   // @ApiOperation({ title: '登陆' })
   // @ApiResponse({

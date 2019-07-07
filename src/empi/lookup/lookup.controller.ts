@@ -22,7 +22,7 @@ import { isArray } from 'util';
 @Controller('/lookup')
 @Controller()
 export class LookupController {
-  constructor(private lookupSrv: LookupService) {}
+  constructor(private lookupSrv: LookupService) { }
 
   @Get()
   async onwayInquire(@Query() query) {
@@ -60,11 +60,24 @@ export class LookupController {
   @Delete()
 
   delete(@Query() query) {
-    const {id} = query;
-    if(+id > 0) {
+    const { id } = query;
+    if (+id > 0) {
       return this.lookupSrv.deleteLookup(+id);
-    }else {
+    } else {
       return null;
     }
+  }
+
+  @Get('GetUserLikeNoSite')
+  getEmp(@Query() query) {
+    const { emp_name } = query;
+    return this.lookupSrv.getEmp(emp_name);
+  }
+
+  @Post('login')
+  async login(@Body() body) {
+    const { userName } = body;
+    const res = await this.lookupSrv.getEmpByUsername(userName);
+    return res && res.length > 0 ? res[0] : null;
   }
 }

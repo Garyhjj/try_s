@@ -9,6 +9,7 @@ export class JwtGuard implements CanActivate {
   canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     const token = request.headers.access_token || '';
+    return true;
     // let result: boolean = false;
     if (token) {
       const [header, content, sign] = token.split('.');

@@ -17,7 +17,6 @@ export class DataDriveService {
       DataDriveObject,
       DataDriveEntity,
     );
-    this.getAllDataDrive().then((res) => console.log(res))
   }
 
   async getAllDataDrive() {

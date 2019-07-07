@@ -43,10 +43,7 @@ export class DataDriveController {
     let result;
     try {
       result = await this.dataDriveService.searchDataDrives(query);
-      return {
-        status: 1,
-        response: result.rows,
-      };
+      return result.rows;
     } catch (e) {
       throw new HttpException(
         'getAllDataDrive fail ' + e,
