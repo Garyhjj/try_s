@@ -19,7 +19,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('document', app, document);
 
-  // app.use(express.static(path.join(__dirname, 'assets')));
+  app.use(express.static(path.join(__dirname, 'upload')));
   await app.listen(serverConfig.port);
   // tslint:disable-next-line:no-console
   console.log('http://localhost:' + serverConfig.port);

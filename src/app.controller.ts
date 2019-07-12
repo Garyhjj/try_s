@@ -1,6 +1,6 @@
 import { UtilService } from './core/util.service';
 import { HttpService } from '@nestjs/common/http';
-import { Get, Post, Controller, Body, Param, FileInterceptor, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Get, Post, Controller, Body, Param, FileInterceptor, UseInterceptors, UploadedFile, UploadedFiles, HttpException, HttpStatus, FilesInterceptor } from '@nestjs/common';
 import { AppService } from './app.service';
 import {
   ApiUseTags,
@@ -9,6 +9,18 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import * as process from 'child_process';
+import { join } from 'path';
+import { createWriteStream } from 'fs';
+
+const promisify = (fn) => (...args): Promise<any> => new Promise((resolve, reject) => {
+  fn(...args, (err, res) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(res);
+    }
+  });
+});
 
 @ApiUseTags('app')
 @Controller()
@@ -96,11 +108,27 @@ export class AppController {
     });
   }
 
-  // @Post('SystemOperation/UploadFiles')
-  // @UseInterceptors(FileInterceptor('file'))
-  // async upload(@UploadedFile() file) {
-  //   console.log(file);
-  // }
+  @Get('SystemOperation/UploadFiles')
+  dsfd() {
+    return '456123'
+  }
+
+  @Post('SystemOperation/UploadFiles')
+  @UseInterceptors(FilesInterceptor('Files', 9))
+  async UploadedFile(@UploadedFiles() files) {
+    if (files.length === 0) {
+      throw new HttpException('请求参数错误.', HttpStatus.FORBIDDEN)
+    }
+    const req = [];
+    for (const file of files) {
+      const filePath = join(__dirname, '..', 'upload', `${Date.now()}-${file.originalname}`)
+      const writeFile = createWriteStream(filePath);
+      writeFile.write(file.buffer);
+      req.push(promisify(writeFile.write.bind(writeFile))(file.buffer).then(() => filePath));
+    }
+    const res = await Promise.all(req);
+    return res;
+  }
 
   // @ApiOperation({ title: '登陆' })
   // @ApiResponse({
