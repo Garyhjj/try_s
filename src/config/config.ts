@@ -44,5 +44,6 @@ export const dbConfig = {
 };
 
 export const serverConfig = {
+  url: 'http://localhost',
   port: isProduction() ? 8092 : 8092,
 };

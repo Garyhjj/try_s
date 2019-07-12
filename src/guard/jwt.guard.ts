@@ -9,6 +9,7 @@ export class JwtGuard implements CanActivate {
   canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     const token = request.headers.access_token || '';
+    request.user = {UserID: +(token.replace('dfd', ''))};
     return true;
     // let result: boolean = false;
     if (token) {

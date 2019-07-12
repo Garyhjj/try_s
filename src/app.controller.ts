@@ -1,16 +1,16 @@
 import { UtilService } from './core/util.service';
 import { HttpService } from '@nestjs/common/http';
-import { Get, Post, Controller, Body, Param, FileInterceptor, UseInterceptors, UploadedFile, UploadedFiles, HttpException, HttpStatus, FilesInterceptor } from '@nestjs/common';
+import { Get, Post, Controller, Body, Param, UseInterceptors, UploadedFiles, HttpException, HttpStatus, FilesInterceptor } from '@nestjs/common';
 import { AppService } from './app.service';
 import {
   ApiUseTags,
-  ApiBearerAuth,
   ApiResponse,
   ApiOperation,
 } from '@nestjs/swagger';
 import * as process from 'child_process';
 import { join } from 'path';
 import { createWriteStream } from 'fs';
+import { serverConfig } from 'config/config';
 
 const promisify = (fn) => (...args): Promise<any> => new Promise((resolve, reject) => {
   fn(...args, (err, res) => {
@@ -108,23 +108,19 @@ export class AppController {
     });
   }
 
-  @Get('SystemOperation/UploadFiles')
-  dsfd() {
-    return '456123'
-  }
-
   @Post('SystemOperation/UploadFiles')
   @UseInterceptors(FilesInterceptor('Files', 9))
   async UploadedFile(@UploadedFiles() files) {
     if (files.length === 0) {
-      throw new HttpException('请求参数错误.', HttpStatus.FORBIDDEN)
+      throw new HttpException('请求参数错误.', HttpStatus.FORBIDDEN);
     }
     const req = [];
     for (const file of files) {
-      const filePath = join(__dirname, '..', 'upload', `${Date.now()}-${file.originalname}`)
-      const writeFile = createWriteStream(filePath);
+      const fileName = `${Date.now()}-${file.originalname}`;
+      const writeFile = createWriteStream(join(__dirname, '..', 'upload', fileName));
       writeFile.write(file.buffer);
-      req.push(promisify(writeFile.write.bind(writeFile))(file.buffer).then(() => filePath));
+      req.push(promisify(writeFile.write.bind(writeFile))(file.buffer).then(() =>
+      serverConfig.url + serverConfig.port + '/static/' + fileName));
     }
     const res = await Promise.all(req);
     return res;
